@@ -311,10 +311,16 @@ Program ini dijalankan dengan memasukkan konfigurasi papan yang diinginkan, dan 
 # Screenshot Program yang dijalankan
 
 Input:
+
+
+
 ![image](https://user-images.githubusercontent.com/61129358/77842794-d0dc9d00-71c0-11ea-9379-af83d141f065.png)
 
 
 Output:
+
+
+
 ![image](https://user-images.githubusercontent.com/61129358/77842810-f49fe300-71c0-11ea-9c35-be97203d0ca0.png)
 
 
