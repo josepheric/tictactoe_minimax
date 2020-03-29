@@ -1,15 +1,17 @@
 # Tictactoe_MiniMax
 Tic Tac Toe Ai with Minimax Algorithm
+oleh Joseph Eric A. S. untuk memenuhi tugas KB
+
 
 Penjelasan Source Code:
-``
+```
 struct Move 
 { 
 	int row, col; 
 }; 
 
 char player = 'x', opponent = 'o'; 
-``
+```
 Ini merupakan struktur data dari pegerakan pada game tic-tac-toe. 
 Pada kasus ini, player menggunakan x dan opponent/musuh akan menggunakan o dalam game tic-tac-toe
 Player dapat mengisi x pada cel yg kosong, opponent mengisi o pada cel manapun yg kosong
@@ -159,7 +161,9 @@ int minimax(char board[3][3], int depth, bool isMax)
 	// it is a tie 
 	if (isMovesLeft(board)==false) 
 		return 0; 
-
+```
+Kode Diatas digunakan untuk mengecek siapa yang menang
+```
 	// If this maximizer's move 
 	if (isMax) 
 	{ 
@@ -188,7 +192,10 @@ int minimax(char board[3][3], int depth, bool isMax)
 		} 
 		return best; 
 	} 
-
+```
+Apabila giliran maximizer, seluruh cell akan dicek kosong atau tidak. Apabila kosong, maximizer akan begerak.
+Hal ini dilakukan untuk seluruh kotak yang kosong, kemudian dicari yang menghasilkan nilai paling maksimal.
+```
 	// If this minimizer's move 
 	else
 	{ 
@@ -219,3 +226,96 @@ int minimax(char board[3][3], int depth, bool isMax)
 	} 
 } 
 ```
+Apabila giliran minimizer, seluruh cell akan dicek kosong atau tidak. Apabila kosong, minimizer akan begerak.
+Hal ini dilakukan untuk seluruh kotak yang kosong, kemudian dicari yang menghasilkan nilai paling minimal.
+
+
+# Fungsi findBestMove
+Fungsi ini digunakan untuk mencari langkah terbaik pemain.
+```
+// This will return the best possible move for the player 
+Move findBestMove(char board[3][3]) 
+{ 
+	int bestVal = -1000; 
+	Move bestMove; 
+	bestMove.row = -1; 
+	bestMove.col = -1; 
+
+	// Traverse all cells, evaluate minimax function for 
+	// all empty cells. And return the cell with optimal 
+	// value. 
+	for (int i = 0; i<3; i++) 
+	{ 
+		for (int j = 0; j<3; j++) 
+		{ 
+			// Check if cell is empty 
+			if (board[i][j]=='_') 
+			{ 
+				// Make the move 
+				board[i][j] = player; 
+
+				// compute evaluation function for this 
+				// move. 
+				int moveVal = minimax(board, 0, false); 
+
+				// Undo the move 
+				board[i][j] = '_'; 
+
+				// If the value of the current move is 
+				// more than the best value, then update 
+				// best/ 
+				if (moveVal > bestVal) 
+				{ 
+					bestMove.row = i; 
+					bestMove.col = j; 
+					bestVal = moveVal; 
+				} 
+			} 
+		} 
+	} 
+```
+Potongan kode diatas mengunjungi semua cell, mengecek apakah cell itu kosong, dan apabila kosong akan menggunakan minimaxa fucntion untuk mengevaluasi scroesnya. 
+```
+	printf("The value of the best Move is : %d\n\n", 
+			bestVal); 
+
+	return bestMove
+; 
+} 
+```
+Kemudian fungsi menreturn move yang menghasikan score terbaik
+
+# Fungsi Main
+```
+int main() 
+{ 
+	char board[3][3] = 
+	{ 
+		{ 'x', 'o', 'x' }, 
+		{ 'o', 'o', 'x' }, 
+		{ '_', '_', '_' } 
+	}; 
+
+	Move bestMove = findBestMove(board); 
+
+	printf("The Optimal Move is :\n"); 
+	printf("ROW: %d COL: %d\n\n", bestMove.row, 
+								bestMove.col ); 
+	return 0; 
+} 
+```
+Program ini dijalankan dengan memasukkan konfigurasi papan yang diinginkan, dan program akan mengoutputkan langkah terbaik yang mungkin diambil player.
+
+
+
+# Screenshot Program yang dijalankan
+
+Input:
+![image](https://user-images.githubusercontent.com/61129358/77842794-d0dc9d00-71c0-11ea-9379-af83d141f065.png)
+
+
+Output:
+![image](https://user-images.githubusercontent.com/61129358/77842810-f49fe300-71c0-11ea-9c35-be97203d0ca0.png)
+
+
+
